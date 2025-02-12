@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بازی هواپیمای آتاری</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #70c5ce;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        canvas {
+            background-color: #fff;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="gameCanvas" width="320" height="480"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const GRAVITY = 0.5;
+        const LIFT = -12;
+        const SPAWN_RATE = 90;
+        const PIPE_WIDTH = 50;
+        const PIPE_GAP = 150;
+
+        let birdY = canvas.height / 2;
+        let birdVelocity = 0;
+        let birdWidth = 30;
+        let birdHeight = 30;
+        let birdX = 50;
+
+        let pipes = [];
+        let score = 0;
+        let frame = 0;
+
+        function drawBird() {
+            ctx.fillStyle = 'yellow';
+            ctx.fillRect(birdX, birdY, birdWidth, birdHeight);
+        }
+
+        function updateBird() {
+            birdVelocity += GRAVITY;
+            birdY += birdVelocity;
+
+            if (birdY < 0) birdY = 0;
+            if (birdY + birdHeight > canvas.height) birdY = canvas.height - birdHeight;
+        }
+
+        function drawPipes() {
+            ctx.fillStyle = 'green';
+            pipes.forEach(pipe => {
+                ctx.fillRect(pipe.x, 0, PIPE_WIDTH, pipe.topHeight);
+                ctx.fillRect(pipe.x, pipe.topHeight + PIPE_GAP, PIPE_WIDTH, canvas.height - pipe.topHeight - PIPE_GAP);
+            });
+        }
+
+        function updatePipes() {
+            if (frame % SPAWN_RATE === 0) {
+                const topHeight = Math.floor(Math.random() * (canvas.height - PIPE_GAP));
+                pipes.push({ x: canvas.width, topHeight });
+            }
+
+            pipes.forEach(pipe => {
+                pipe.x -= 2;
+            });
+
+            pipes = pipes.filter(pipe => pipe.x + PIPE_WIDTH > 0);
+        }
+
+        function checkCollisions() {
+            for (let i = 0; i < pipes.length; i++) {
+                const pipe = pipes[i];
+                if (
+                    birdX + birdWidth > pipe.x && birdX < pipe.x + PIPE_WIDTH &&
+                    (birdY < pipe.topHeight || birdY + birdHeight > pipe.topHeight + PIPE_GAP)
+                ) {
+                    resetGame();
+                }
+            }
+        }
+
+        function drawScore() {
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.fillText(`امتیاز: ${score}`, 10, 30);
+        }
+
+        function resetGame() {
+            birdY = canvas.height / 2;
+            birdVelocity = 0;
+            pipes = [];
+            score = 0;
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            updateBird();
+            drawBird();
+
+            updatePipes();
+            drawPipes();
+
+            checkCollisions();
+            drawScore();
+
+            frame++;
+            score++;
+            requestAnimationFrame(gameLoop);
+        }
+
+        window.addEventListener('keydown', () => {
+            birdVelocity = LIFT;
+        });
+
+        gameLoop();
+    </script>
+
+</body>
+
+</html>

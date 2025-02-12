@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ارسال پیام</title>
+    <link rel="stylesheet" href="./peam.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ارسال پیام</h1>
+        <form action="#" method="post" id="message-form">
+            <label for="name">نام شما:</label>
+            <input type="text" id="name" name="name" placeholder="نام خود را وارد کنید" required>
+
+            <label for="email">ایمیل شما:</label>
+            <input type="email" id="email" name="email" placeholder="ایمیل خود را وارد کنید" required>
+
+            <label for="message">پیام شما:</label>
+            <textarea id="message" name="message" placeholder="پیام خود را وارد کنید" rows="4" required></textarea>
+
+            <button type="submit" id="submit-btn">ارسال پیام</button>
+        </form>
+
+        <div id="confirmation" class="hidden">
+            <h2>پیام شما ارسال شد!</h2>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('message-form');
+        const confirmation = document.getElementById('confirmation');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const name = form.name.value;
+            const email = form.email.value;
+            const message = form.message.value;
+
+           
+            confirmation.classList.remove('hidden');
+            form.reset(); 
+        });
+    </script>
+</body>
+</html>
