@@ -1,0 +1,187 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Vazir', sans-serif;
+    background-color: chocolate;
+    background-size: cover;
+    background-position: center;
+    color: #ae00ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    justify-content: space-between;
+    text-align: center;
+}
+
+header {
+    width: 100%;
+    padding: 20px;
+    background-color: #f3c702; /* رنگ طلایی */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* سایه برای هدر */
+}
+
+.header-container {
+    display: flex;
+    gap: 15px;
+}
+
+.header-button {
+    color: #ffffff; /* رنگ سفید */
+    font-size: 20px;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #d6b41e;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.header-button:hover {
+    background-color: #840ebb; /* رنگ بنفش */
+    transform: translateY(-2px); /* حرکت ظریف در هنگام هاور */
+}
+
+.logo-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    background-color: transparent;
+    height: auto;
+    animation: logoAnimation 3s ease-in-out infinite; /* انیمیشن برای لوگو */
+}
+
+.logo-container img {
+    width: 80px; /* اندازه لوگو */
+    height: auto;
+    animation: logoAnimation 3s ease-in-out infinite; /* انیمیشن برای تصویر لوگو */
+}
+
+/* انیمیشن لوگو */
+@keyframes logoAnimation {
+    0% {
+        transform: scale(1); /* اندازه اولیه */
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2); 
+        opacity: 0.8; 
+    }
+    100% {
+        transform: scale(1); 
+        opacity: 1;
+    }
+}
+
+.content {
+    margin-top: 100px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    color: #ffffff;
+    margin-bottom: 50px;
+    font-family: 'Vazir', sans-serif;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.button {
+    background-color: #D9A732; 
+    padding: 30px;
+    width: 150px;
+    text-align: center;
+    border-radius: 15px;
+    text-decoration: none;
+    color: #3E2723;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.button p {
+    font-size: 20px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #6D4C41;
+    transform: scale(1.1);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
+}
+
+.button:hover img {
+    transform: rotate(360deg);
+}
+
+footer {
+    width: 100%;
+    padding: 20px;
+    background-color: #3E2723;
+    text-align: center;
+    color: #FFEB3B; 
+}
+
+@media screen and (max-width: 768px) {
+    .header-button {
+        font-size: 16px;
+        padding: 8px 15px;
+    }
+
+    .button {
+        width: 120px;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .logo-container {
+        justify-content: center; 
+        margin-bottom: 10px;
+    }
+
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
